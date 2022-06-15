@@ -12,10 +12,6 @@
 
 <body>
     <div id="bar-chart"></div>
-    <label for="year">Select year:</label>
-
-    <select name="year" id="year">
-    </select>
     <script>
         function BarChart(data, {
             x = (d, i) => i, // given d in data, returns the (ordinal) x-value
@@ -120,19 +116,6 @@
                 all_year_data[data.result.records[i].year] = single_year_data
             }
 
-            // get keys from all_year_data
-            let keys = Object.keys(all_year_data)
-            for (let i = 0; i < keys.length; i++) {
-                // create a drop down with data.result.records[i].year as the option append to select #year onselect change call BarChart
-                $('#year').append($('<option>', {
-                    value: keys[i],
-                    text: keys[i]
-                })).on('change', function () {
-                    // transition bar chart
-                    d3.select('#bar-chart').selectAll('*').remove();
-                });
-            }
-
 
             chart = BarChart(all_year_data[2020], {
                 x: d => d.level_2,
@@ -145,8 +128,6 @@
 
             // add the chart to the div
             d3.select("#bar-chart").node().appendChild(chart);
-
-            chart
         });
 
 
